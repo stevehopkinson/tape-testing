@@ -1,4 +1,5 @@
 var test = require('tape');
+var { asyncDouble } = require('../src/my_functions.js');
 
 test('Check tape is working with a simple passing test', function (t) {
   t.pass('a message to print out on success');
@@ -46,16 +47,6 @@ test('Check whether values are falsy', function (t) {
 })
 
 test('Test asyncronous functions', function (t) {
-  function asyncDouble (n, cb) {
-    setTimeout(function () {
-      if (typeof n !== 'number') {
-        cb(new TypeError('Expected number'));
-      } else {
-        cb(null, n * 2);
-      }
-    }, 10);
-  }
-
   asyncDouble (2, function (err, result) {
     t.equal(err, null);
     t.equal(result, 4);
