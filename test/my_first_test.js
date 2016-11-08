@@ -28,3 +28,37 @@ test('Comparing the same array or object should be done with equal', function (t
   t.equal(obj, identity(obj));
   t.end();
 })
+
+test('Check whether values are truthy', function (t) {
+  t.ok(true);
+  t.ok(1);
+  t.ok('string');
+  t.ok({});
+  t.ok([]);
+  t.end();
+})
+
+test('Check whether values are falsy', function (t) {
+  t.notOk(false);
+  t.notOk(0);
+  t.notOk('');
+  t.end();
+})
+
+test('Test asyncronous functions', function (t) {
+  function asyncDouble (n, cb) {
+    setTimeout(function () {
+      if (typeof n !== 'number') {
+        cb(new TypeError('Expected number'));
+      } else {
+        cb(null, n * 2);
+      }
+    }, 10);
+  }
+
+  asyncDouble (2, function (err, result) {
+    t.equal(err, null);
+    t.equal(result, 4);
+    t.end();
+  })
+})
